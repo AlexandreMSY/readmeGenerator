@@ -16,7 +16,7 @@ module.exports = {
         sourceSans: ['"Source Sans Pro"', 'sans-serif']
       },
       colors: {
-        'navy': '#27374D'
+        'dark': '#121212'
       }
     },
   },
