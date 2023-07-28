@@ -1,16 +1,15 @@
 import React from "react";
+import TechCard from "./TechCard";
 
 const BuiltWithForm = (props) => {
-  const { techNameRef, addButtonAction, technologiesList } = props;
+  const { techNameRef, addButtonAction, deleteButtonAction, technologiesList } =
+    props;
   return (
     <>
       <div className="flex flex-col gap-8">
         <h1 className="text-2xl tracking-wide font-medium">Built With</h1>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam
-          perspiciatis, veritatis, suscipit saepe nostrum numquam adipisci sint,
-          quis reiciendis cum cumque at voluptates magnam minima! Quaerat facere
-          consectetur ab saepe.
+          Here you can list all the frameworks/libraries used in your project.
         </p>
         <div className="flex flex-row justify-center gap-4">
           <input
@@ -27,8 +26,14 @@ const BuiltWithForm = (props) => {
             Add
           </button>
         </div>
-        <div className="text-white">
-          {technologiesList.map(item => <p key={item.id}>{item.name}</p>)}
+        <div className="text-white flex flex-row gap-4 flex-wrap">
+          {technologiesList.map((item) => (
+            <TechCard
+              deleteBtnAction={() => {deleteButtonAction(item.id)}}
+              key={item.id}
+              name={item.name}
+            />
+          ))}
         </div>
       </div>
     </>

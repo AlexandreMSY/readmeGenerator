@@ -15,7 +15,6 @@ const page = () => {
     aboutText: "",
     techs: [],
   });
-  const [test, setTest] = useState([]);
   const techRef = useRef();
   const [currentComponent, setCurrentComponent] = useState("details");
 
@@ -29,12 +28,20 @@ const page = () => {
 
   const handleAddButtonClick = () => {
     const name = techRef.current.value;
-    const index = input.techs.length + 1;
+    const techListLength = input.techs.length
     setInput((values) => ({
       ...values,
-      techs: [...values.techs, { id: index, name: name }],
+      techs: [...values.techs, { id: techListLength, name: name }],
     }));
-    console.log(input.techs);
+    techRef.current.value = "";
+  };
+
+  const deleteBuiltWithItem = (id) => {
+    const builtWithItems = input.techs.filter((item) => item.id != id);
+    setInput((values) => ({
+      ...values,
+      techs: builtWithItems,
+    }));
   };
 
   const components = {
@@ -52,6 +59,7 @@ const page = () => {
         techNameRef={techRef}
         technologiesList={input.techs}
         addButtonAction={handleAddButtonClick}
+        deleteButtonAction={deleteBuiltWithItem}
       />
     ),
   };
@@ -76,11 +84,11 @@ const page = () => {
 
   return (
     <>
-      <div className="font-sourceSans bg-gray-950 flex flex-col lg:flex-row h-screen">
+      <div className="font-sourceSans bg-gray-950 flex flex-col lg:flex-row">
         <div className="border-r lg:w-40">
           <SideNavBar handleClick={changeFormComponent} />
         </div>
-        <div className="border-r lg:w-3/6 h-screen">
+        <div className="border-r lg:w-3/6">
           <FormContainer children={components[currentComponent]} />
         </div>
         <div className="flex justify-center items-center content-center bg-black text-5xl w-3/6">
