@@ -2,10 +2,11 @@
 
 import React, { useState, useRef } from "react";
 import FormContainer from "../components/formContainer/FormContainer";
-import DetailsForm from "../components/forms/DetailsForm";
-import AboutForm from "../components/forms/AboutForm";
-import BuiltWithForm from "../components/forms/BuiltWithForm";
+import DetailsForm from "../components/forms/Details/DetailsForm";
+import AboutForm from "../components/forms/AboutForm/AboutForm";
+import BuiltWithForm from "../components/forms/BuiltWith/BuiltWithForm";
 import SideNavBar from "../components/sideNavBar/SideNavBar";
+import GettingStartedForm from "../components/forms/GettingStarted/GettingStartedForm";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -15,7 +16,7 @@ const page = () => {
     aboutText: "",
     techs: [],
   });
-  const techRef = useRef();
+  const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
 
   const handleChange = (event) => {
@@ -27,13 +28,15 @@ const page = () => {
   };
 
   const handleAddButtonClick = () => {
-    const name = techRef.current.value;
-    const techListLength = input.techs.length
+    const { techName } = refs.current;
+    const name = techName.value;
+    const techListLength = input.techs.length;
+
     setInput((values) => ({
       ...values,
       techs: [...values.techs, { id: techListLength, name: name }],
     }));
-    techRef.current.value = "";
+    //techRef.current.value = "";*/
   };
 
   const deleteBuiltWithItem = (id) => {
@@ -56,43 +59,27 @@ const page = () => {
     about: <AboutForm handleChange={handleChange} value={input.aboutText} />,
     built: (
       <BuiltWithForm
-        techNameRef={techRef}
+        techNameRef={(ref) => (refs.current["techName"] = ref)}
         technologiesList={input.techs}
         addButtonAction={handleAddButtonClick}
         deleteButtonAction={deleteBuiltWithItem}
       />
     ),
+    gettingStarted: <GettingStartedForm />,
   };
 
   const changeFormComponent = (formComponentName) => {
     setCurrentComponent(formComponentName);
   };
 
-  const sendData = async () => {
-    const req = await fetch("http://localhost:3000/api/createreadme", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(input),
-    });
-
-    const res = await req.json();
-
-    console.log(res);
-  };
-
   return (
     <>
-      <div className="font-sourceSans bg-gray-950 flex flex-col lg:flex-row">
-        <div className="border-r lg:w-40">
+      <div className="bg-[#121212] flex flex-col lg:flex-row">
+        <div className="border-r border-neutral-700 lg:w-40">
           <SideNavBar handleClick={changeFormComponent} />
         </div>
-        <div className="border-r lg:w-3/6">
+        <div className="border-r border-neutral-700 overflow-x-auto lg:w-3/6">
           <FormContainer children={components[currentComponent]} />
-        </div>
-        <div className="flex justify-center items-center content-center bg-black text-5xl w-3/6">
-          <h1 className="text-white">ABC</h1>
         </div>
       </div>
     </>

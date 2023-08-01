@@ -1,5 +1,6 @@
 import React from "react";
 import TechCard from "./TechCard";
+import Header from "../Header";
 
 const BuiltWithForm = (props) => {
   const { techNameRef, addButtonAction, deleteButtonAction, technologiesList } =
@@ -7,10 +8,10 @@ const BuiltWithForm = (props) => {
   return (
     <>
       <div className="flex flex-col gap-8">
-        <h1 className="text-2xl tracking-wide font-medium">Built With</h1>
-        <p>
-          Here you can list all the frameworks/libraries used in your project.
-        </p>
+        <Header
+          formTitle="Built With"
+          formDescription="Here you can list all the frameworks/libraries used in your project."
+        />
         <div className="flex flex-row justify-center gap-4">
           <input
             type="text"
@@ -29,7 +30,9 @@ const BuiltWithForm = (props) => {
         <div className="text-white flex flex-row gap-4 flex-wrap">
           {technologiesList.map((item) => (
             <TechCard
-              deleteBtnAction={() => {deleteButtonAction(item.id)}}
+              deleteBtnAction={() => {
+                deleteButtonAction(item.id);
+              }}
               key={item.id}
               name={item.name}
             />

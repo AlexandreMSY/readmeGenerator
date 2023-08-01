@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../Header";
 
 const DetailsForm = (props) => {
   const { handleChange, projectNameValue, descriptionValue, projectLinkValue } =
@@ -7,12 +8,16 @@ const DetailsForm = (props) => {
   return (
     <>
       <div className="flex flex-col gap-8">
-        <h1 className="text-2xl tracking-wide font-medium">Details</h1>
-        <p>
-          Enter the basic details for your project. 
-          <br />
-          These are going to be displayed on the top of the Readme.
-        </p>
+        <Header
+          formTitle="Details"
+          formDescription={
+            <>
+              Enter the basic details for your project.
+              <br />
+              These are going to be displayed on the top of the Readme.
+            </>
+          }
+        />
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2">
             <label htmlFor="projectName">Project Name</label>

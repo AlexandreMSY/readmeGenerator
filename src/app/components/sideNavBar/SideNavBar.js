@@ -1,10 +1,5 @@
 import React from "react";
-
-const items = [
-  { id: 1, text: "Details", changeTo: "details" },
-  { id: 2, text: "About", changeTo: "about" },
-  { id: 3, text: "Built With", changeTo: "built" },
-];
+import items from "./items";
 
 const SideNavBar = (props) => {
   const { handleClick } = props;
@@ -22,7 +17,7 @@ const SideNavBar = (props) => {
             </button>
           ))}
         </div>
-        <button className="border rounded bg-lime-400 p-2">Generate</button>
+        <button className="rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white rounded bg-lime-500 p-2 px-4">Generate</button>
       </div>
     </>
   );
