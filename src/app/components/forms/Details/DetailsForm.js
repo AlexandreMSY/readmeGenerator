@@ -56,7 +56,7 @@ const DetailsForm = (props) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="projectLink">Logo</label>
+            <label htmlFor="logo">Logo</label>
             <input
               type="file"
               name="logo"

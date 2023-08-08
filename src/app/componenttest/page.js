@@ -15,6 +15,9 @@ const page = () => {
     projectLink: "",
     aboutText: "",
     techs: [],
+    gettingStarted: {
+      prerequisites: [],
+    },
   });
   const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
@@ -27,7 +30,7 @@ const page = () => {
     console.log(input);
   };
 
-  const handleAddButtonClick = () => {
+  const builtWithAddBtnAction = () => {
     const { techName } = refs.current;
     const name = techName.value;
     const techListLength = input.techs.length;
@@ -36,15 +39,39 @@ const page = () => {
       ...values,
       techs: [...values.techs, { id: techListLength, name: name }],
     }));
-    //techRef.current.value = "";*/
+    techName.current.value = "";
   };
 
-  const deleteBuiltWithItem = (id) => {
+  const builtWithDeleteBtnAction = (id) => {
     const builtWithItems = input.techs.filter((item) => item.id != id);
     setInput((values) => ({
       ...values,
       techs: builtWithItems,
     }));
+  };
+
+  const createPrerequisite = () => {
+    const { prerequisiteName, prerequisiteCode } = refs.current;
+    const prerequisiteNameValue = prerequisiteName.value;
+    const prerequisiteCodeValue = prerequisiteCode.value;
+    const prerequisitesLength = input.gettingStarted.prerequisites.length;
+
+    setInput((values) => ({
+      ...values,
+      gettingStarted: {
+        ...values.gettingStarted,
+        prerequisites: [
+          ...values.gettingStarted.prerequisites,
+          {
+            id: prerequisitesLength,
+            name: prerequisiteNameValue,
+            code: prerequisiteCodeValue,
+          },
+        ],
+      },
+    }));
+
+    console.log(input);
   };
 
   const components = {
@@ -61,11 +88,20 @@ const page = () => {
       <BuiltWithForm
         techNameRef={(ref) => (refs.current["techName"] = ref)}
         technologiesList={input.techs}
-        addButtonAction={handleAddButtonClick}
-        deleteButtonAction={deleteBuiltWithItem}
+        addButtonAction={builtWithAddBtnAction}
+        deleteButtonAction={builtWithDeleteBtnAction}
       />
     ),
-    gettingStarted: <GettingStartedForm />,
+    gettingStarted: (
+      <GettingStartedForm
+        prerequisiteTextRef={(ref) => (refs.current["prerequisiteName"] = ref)}
+        prerequisiteTextAreaRef={(ref) =>
+          (refs.current["prerequisiteCode"] = ref)
+        }
+        prerequisiteAddButtonAction={createPrerequisite}
+        prerequisites={input.gettingStarted.prerequisites}
+      />
+    ),
   };
 
   const changeFormComponent = (formComponentName) => {
@@ -75,10 +111,10 @@ const page = () => {
   return (
     <>
       <div className="bg-[#121212] flex flex-col lg:flex-row">
-        <div className="border-r border-neutral-700 lg:w-40">
+        <div className="lg:w-40 border-r border-neutral-700 ">
           <SideNavBar handleClick={changeFormComponent} />
         </div>
-        <div className="border-r border-neutral-700 overflow-x-auto lg:w-3/6">
+        <div className="overflow-x-auto lg:w-3/6 border-r border-neutral-700">
           <FormContainer children={components[currentComponent]} />
         </div>
       </div>

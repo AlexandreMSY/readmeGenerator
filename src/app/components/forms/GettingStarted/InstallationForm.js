@@ -1,24 +1,25 @@
 import React from "react";
+import SubHeader from "./SubHeader";
 
 const InstallationForm = (props) => {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <div>
-          <h4 className="text-xl tracking-wide">Installation</h4>
-          <p className="tracking-wide">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Repudiandae, voluptate minus maiores consequuntur culpa eum repellat
-          </p>
-        </div>
-        <div>
+        <SubHeader
+          title="Installation"
+          description="
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
+            voluptatum magnam vel provident saepe ea. Harum fugit eum nam deserunt
+            tenetur, ducimus, molestias excepturi saepe ipsam quae ratione quas.
+            Odio.
+          "
+        />
+        <div className="flex flex-col gap-2">
           <label htmlFor="1">Step</label>
           <input
             type="text"
             className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
           />
-        </div>
-        <div className="flex flex-col gap-3">
           <label htmlFor="2">Code/Command</label>
           <textarea className="bg-gray-900 outline-none h-[10em] p-2"></textarea>
         </div>
