@@ -17,6 +17,7 @@ const page = () => {
     techs: [],
     gettingStarted: {
       prerequisites: [],
+      installation: [],
     },
   });
   const refs = useRef({});
@@ -42,20 +43,13 @@ const page = () => {
     techName.current.value = "";
   };
 
-  const builtWithDeleteBtnAction = (id) => {
-    const builtWithItems = input.techs.filter((item) => item.id != id);
-    setInput((values) => ({
-      ...values,
-      techs: builtWithItems,
-    }));
-  };
-
+  
   const createPrerequisite = () => {
     const { prerequisiteName, prerequisiteCode } = refs.current;
     const prerequisiteNameValue = prerequisiteName.value;
     const prerequisiteCodeValue = prerequisiteCode.value;
-    const prerequisitesLength = input.gettingStarted.prerequisites.length;
-
+    const id = input.gettingStarted.prerequisites.length;
+    
     setInput((values) => ({
       ...values,
       gettingStarted: {
@@ -63,7 +57,7 @@ const page = () => {
         prerequisites: [
           ...values.gettingStarted.prerequisites,
           {
-            id: prerequisitesLength,
+            id: id,
             name: prerequisiteNameValue,
             code: prerequisiteCodeValue,
           },
@@ -71,7 +65,41 @@ const page = () => {
       },
     }));
 
-    console.log(input);
+    prerequisiteName.value = ""
+    prerequisiteCode.value = ""
+  };
+
+  const createInstallation = () => {
+    const { installationStep, installationCode } = refs.current;
+    const installationStepValue = installationStep.value;
+    const installationCodeValue = installationCode.value;
+    const id = input.gettingStarted.installation.length;
+    
+    setInput((values) => ({
+      ...values,
+      gettingStarted: {
+        ...values.gettingStarted,
+        installation: [
+          ...values.gettingStarted.installation,
+          {
+            id: id,
+            name: installationStepValue,
+            code: installationCodeValue,
+          },
+        ],
+      },
+    }));
+
+    installationStep.value = ""
+    installationCode.value = ""
+  };
+  
+  const builtWithDeleteBtnAction = (id) => {
+    const builtWithItems = input.techs.filter((item) => item.id != id);
+    setInput((values) => ({
+      ...values,
+      techs: builtWithItems,
+    }));
   };
 
   const components = {
@@ -81,8 +109,8 @@ const page = () => {
         descriptionValue={input.description}
         projectLinkValue={input.projectLink}
         handleChange={handleChange}
-      />
-    ),
+        />
+        ),
     about: <AboutForm handleChange={handleChange} value={input.aboutText} />,
     built: (
       <BuiltWithForm
@@ -99,7 +127,13 @@ const page = () => {
           (refs.current["prerequisiteCode"] = ref)
         }
         prerequisiteAddButtonAction={createPrerequisite}
+        installationTextRef={(ref) => (refs.current["installationStep"] = ref)}
+        installationTextAreaRef={(ref) =>
+          (refs.current["installationCode"] = ref)
+        }
+        installationAddButtonAction={createInstallation}
         prerequisites={input.gettingStarted.prerequisites}
+        installationSteps={input.gettingStarted.installation}
       />
     ),
   };

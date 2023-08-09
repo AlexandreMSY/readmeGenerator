@@ -13,6 +13,9 @@ const GettingStartedForm = (props) => {
     prerequisiteTextRef,
     prerequisiteTextAreaRef,
     prerequisiteAddButtonAction,
+    installationTextRef,
+    installationTextAreaRef,
+    installationAddButtonAction,
   } = props;
   return (
     <>
@@ -33,34 +36,32 @@ const GettingStartedForm = (props) => {
               />
             ))}
           </div>
-        ) : 
+        ) : (
           <p className="text-center p-6 text-lg border border-neutral-700">
             Your prerequisites will be listed here
           </p>
-        }
-        <InstallationForm />
-        <div className="flex flex-col flex-nowrap overflow-y-auto flex-wrap gap-3 h-[40em] mb-8">
-          <InstallationCard
-            stepNo="1"
-            name="Clone the repo"
-            code="git clone https://github.com/your_username_/Project-Name.git"
-          />
-          <InstallationCard
-            stepNo="2"
-            name="Clone the repo"
-            code="git clone https://github.com/your_username_/Project-Name.git"
-          />
-          <InstallationCard
-            stepNo="3"
-            name="Clone the repo"
-            code="git clone https://github.com/your_username_/Project-Name.git"
-          />
-          <InstallationCard
-            stepNo="4"
-            name="Clone the repo"
-            code="git clone https://github.com/your_username_/Project-Name.git"
-          />
-        </div>
+        )}
+        <InstallationForm
+          textRef={installationTextRef}
+          textAreaRef={installationTextAreaRef}
+          addButtonAction={installationAddButtonAction}
+        />
+        {installationSteps.length > 0 ? (
+          <div className="flex flex-col flex-nowrap overflow-y-auto flex-wrap gap-3 h-[40em]">
+            {installationSteps.map((item, index) => (
+              <InstallationCard
+                key={item.id}
+                stepNo={index + 1}
+                name={item.name}
+                code={item.code}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center p-6 text-lg border border-neutral-700">
+            Your installation steps will be listed here
+          </p>
+        )}
       </div>
     </>
   );
