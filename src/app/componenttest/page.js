@@ -8,6 +8,7 @@ import BuiltWithForm from "../components/forms/BuiltWith/BuiltWithForm";
 import SideNavBar from "../components/sideNavBar/SideNavBar";
 import GettingStartedForm from "../components/forms/GettingStarted/GettingStartedForm";
 import Roadmap from "../components/forms/RoadmapForm/RoadmapForm";
+import ContributingForm from "../components/forms/ContributingForm/ContributingForm";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -188,6 +189,7 @@ const page = () => {
         }
       />
     ),
+    contributing: <ContributingForm />
   };
 
   const changeFormComponent = (formComponentName) => {
