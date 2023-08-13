@@ -7,6 +7,7 @@ import AboutForm from "../components/forms/AboutForm/AboutForm";
 import BuiltWithForm from "../components/forms/BuiltWith/BuiltWithForm";
 import SideNavBar from "../components/sideNavBar/SideNavBar";
 import GettingStartedForm from "../components/forms/GettingStarted/GettingStartedForm";
+import Roadmap from "../components/forms/RoadmapForm/RoadmapForm";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -19,6 +20,7 @@ const page = () => {
       prerequisites: [],
       installation: [],
     },
+    roadmap: "",
   });
   const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
@@ -40,16 +42,15 @@ const page = () => {
       ...values,
       techs: [...values.techs, { id: techListLength, name: name }],
     }));
-    techName.current.value = "";
+    techName.value = "";
   };
 
-  
   const createPrerequisite = () => {
     const { prerequisiteName, prerequisiteCode } = refs.current;
     const prerequisiteNameValue = prerequisiteName.value;
     const prerequisiteCodeValue = prerequisiteCode.value;
     const id = input.gettingStarted.prerequisites.length;
-    
+
     setInput((values) => ({
       ...values,
       gettingStarted: {
@@ -65,8 +66,8 @@ const page = () => {
       },
     }));
 
-    prerequisiteName.value = ""
-    prerequisiteCode.value = ""
+    prerequisiteName.value = "";
+    prerequisiteCode.value = "";
   };
 
   const createInstallation = () => {
@@ -74,7 +75,7 @@ const page = () => {
     const installationStepValue = installationStep.value;
     const installationCodeValue = installationCode.value;
     const id = input.gettingStarted.installation.length;
-    
+
     setInput((values) => ({
       ...values,
       gettingStarted: {
@@ -90,15 +91,43 @@ const page = () => {
       },
     }));
 
-    installationStep.value = ""
-    installationCode.value = ""
+    installationStep.value = "";
+    installationCode.value = "";
   };
-  
+
   const builtWithDeleteBtnAction = (id) => {
     const builtWithItems = input.techs.filter((item) => item.id != id);
     setInput((values) => ({
       ...values,
       techs: builtWithItems,
+    }));
+  };
+
+  const deletePrerequisite = (id) => {
+    const newPrerequisiteList = input.gettingStarted.prerequisites.filter(
+      (item) => item.id != id
+    );
+
+    setInput((values) => ({
+      ...values,
+      gettingStarted: {
+        ...values.gettingStarted,
+        prerequisites: newPrerequisiteList,
+      },
+    }));
+  };
+
+  const deleteInstallationStep = (id) => {
+    const newInstallationStepList = input.gettingStarted.installation.filter(
+      (item) => item.id != id
+    );
+
+    setInput((values) => ({
+      ...values,
+      gettingStarted: {
+        ...values.gettingStarted,
+        installation: newInstallationStepList,
+      },
     }));
   };
 
@@ -109,9 +138,19 @@ const page = () => {
         descriptionValue={input.description}
         projectLinkValue={input.projectLink}
         handleChange={handleChange}
-        />
-        ),
-    about: <AboutForm handleChange={handleChange} value={input.aboutText} />,
+      />
+    ),
+    about: (
+      <AboutForm
+        handleChange={(e) =>
+          setInput((values) => ({
+            ...values,
+            aboutText: e,
+          }))
+        }
+        value={input.aboutText}
+      />
+    ),
     built: (
       <BuiltWithForm
         techNameRef={(ref) => (refs.current["techName"] = ref)}
@@ -127,13 +166,26 @@ const page = () => {
           (refs.current["prerequisiteCode"] = ref)
         }
         prerequisiteAddButtonAction={createPrerequisite}
+        prerequisiteDeleteButtonAction={deletePrerequisite}
         installationTextRef={(ref) => (refs.current["installationStep"] = ref)}
         installationTextAreaRef={(ref) =>
           (refs.current["installationCode"] = ref)
         }
         installationAddButtonAction={createInstallation}
+        installationDeleteButtonAction={deleteInstallationStep}
         prerequisites={input.gettingStarted.prerequisites}
         installationSteps={input.gettingStarted.installation}
+      />
+    ),
+    roadmap: (
+      <Roadmap
+        value={input.roadmap}
+        handleChange={(e) =>
+          setInput((values) => ({
+            ...values,
+            roadmap: e,
+          }))
+        }
       />
     ),
   };
@@ -146,7 +198,10 @@ const page = () => {
     <>
       <div className="bg-[#121212] flex flex-col lg:flex-row">
         <div className="lg:w-40 border-r border-neutral-700 ">
-          <SideNavBar handleClick={changeFormComponent} />
+          <SideNavBar
+            handleClick={changeFormComponent}
+            generateButtonAction={() => console.log(input)}
+          />
         </div>
         <div className="overflow-x-auto lg:w-3/6 border-r border-neutral-700">
           <FormContainer children={components[currentComponent]} />

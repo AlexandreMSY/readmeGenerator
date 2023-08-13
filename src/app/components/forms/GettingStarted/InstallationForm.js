@@ -9,10 +9,7 @@ const InstallationForm = (props) => {
         <SubHeader
           title="Installation"
           description="
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
-            voluptatum magnam vel provident saepe ea. Harum fugit eum nam deserunt
-            tenetur, ducimus, molestias excepturi saepe ipsam quae ratione quas.
-            Odio.
+          All the steps needed to install the project on the machine.
           "
         />
         <div className="flex flex-col gap-2">
@@ -21,12 +18,14 @@ const InstallationForm = (props) => {
             type="text"
             name="installationStep"
             ref={textRef}
+            minLength={1}
             className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
           />
           <label htmlFor="installationCode">Code/Command</label>
           <textarea
             name="installationCode"
             ref={textAreaRef}
+            minLength={1}
             className="bg-gray-900 outline-none h-[10em] p-2"
           ></textarea>
         </div>

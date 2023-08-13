@@ -11,10 +11,7 @@ const PrerequisiteForm = (props) => {
         <SubHeader
           title="Prerequisites"
           description="
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Reiciendis
-          voluptatum magnam vel provident saepe ea. Harum fugit eum nam deserunt
-          tenetur, ducimus, molestias excepturi saepe ipsam quae ratione quas.
-          Odio.
+          List all the things needed to run the project.
           "
         />
         <div className="flex flex-col gap-2">
