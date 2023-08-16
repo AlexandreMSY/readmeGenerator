@@ -10,7 +10,6 @@ const SideNavBar = (props) => {
           {items.map((items) => (
             <button
               key={items.id}
-              className="hover:border-b border-lime-400 transition-400 ease-in-out"
               onClick={() => handleClick(items.changeTo)}
             >
               <h1 className="items-center">{items.text}</h1>

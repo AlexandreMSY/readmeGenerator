@@ -9,10 +9,11 @@ const Roadmap = (props) => {
       <div className="flex flex-col gap-4 text-white">
         <Header formTitle="Roadmap" formDescription="List the features you're planning or already completed."/>
         <MDEditor
-          height={700}
+          height={600}
           value={value}
           onChange={handleChange}
           preview="edit"
+          visibleDragbar={false}
           commands={[
             commands.checkedListCommand,
             commands.bold,

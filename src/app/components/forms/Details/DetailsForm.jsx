@@ -7,14 +7,12 @@ const DetailsForm = (props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 ">
         <Header
           formTitle="Details"
           formDescription={
             <>
-              Enter the basic details for your project.
-              <br />
-              These are going to be displayed on the top of the Readme.
+              Enter the basic details of your project.
             </>
           }
         />

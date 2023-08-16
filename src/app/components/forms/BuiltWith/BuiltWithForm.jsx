@@ -22,7 +22,7 @@ const BuiltWithForm = (props) => {
           />
           <button
             onClick={addButtonAction}
-            className="border rounded bg-lime-400 w-[15%]"
+            className="rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white rounded bg-lime-500 py-1 px-4"
           >
             Add
           </button>

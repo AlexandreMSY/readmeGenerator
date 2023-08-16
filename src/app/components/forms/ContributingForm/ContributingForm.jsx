@@ -6,13 +6,13 @@ const ContributingForm = (props) => {
   const { value, handleChange } = props;
   return (
     <>
-      <div className="flex flex-col gap-8 text-white">
+      <div className="flex flex-col gap-4 text-white">
         <Header
           formTitle="Contributing"
           formDescription="Give instructions on how to contribute to your project."
         />
         <div className="mb-6">
-          <MDEditor height={700} value={value} onChange={handleChange} />
+          <MDEditor height={600} value={value} onChange={handleChange} visibleDragbar={false}/>
         </div>
       </div>
     </>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FormContainer from "../components/formContainer/FormContainer";
 import DetailsForm from "../components/forms/Details/DetailsForm";
 import AboutForm from "../components/forms/AboutForm/AboutForm";
@@ -9,6 +9,9 @@ import SideNavBar from "../components/sideNavBar/SideNavBar";
 import GettingStartedForm from "../components/forms/GettingStarted/GettingStartedForm";
 import Roadmap from "../components/forms/RoadmapForm/RoadmapForm";
 import ContributingForm from "../components/forms/ContributingForm/ContributingForm";
+import Contact from "../components/forms/Contact/Contact";
+import items from "../components/sideNavBar/items";
+import MobileNavBar from "../components/mobileNavBar/MobileNavBar";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -22,9 +25,15 @@ const page = () => {
       installation: [],
     },
     roadmap: "",
+    contributing: "",
   });
   const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
+  const [componentId, setComponentId] = useState(0);
+
+  useEffect(() => {
+    setCurrentComponent(items[componentId].changeTo);
+  }, [componentId]);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -189,24 +198,53 @@ const page = () => {
         }
       />
     ),
-    contributing: <ContributingForm />
+    contributing: (
+      <ContributingForm
+        value={input.contributing}
+        handleChange={(e) => {
+          setInput((values) => ({
+            ...values,
+            contributing: e,
+          }));
+        }}
+      />
+    ),
+    contact: <Contact />,
   };
 
-  const changeFormComponent = (formComponentName) => {
-    setCurrentComponent(formComponentName);
+  const nextFormComponent = () => {
+    if (componentId < items.length - 1) {
+      setComponentId(componentId + 1);
+    }
+  };
+
+  const prevFormComponent = () => {
+    if (componentId < 1) {
+      return;
+    }
+
+    setComponentId(componentId - 1);
   };
 
   return (
     <>
-      <div className="bg-[#121212] flex flex-col lg:flex-row">
-        <div className="lg:w-40 border-r border-neutral-700 ">
+      <div className="relative bg-black flex flex-col h-screen lg:flex-row gap-2 px-2 py-2">
+        <div className="hidden border border-transparent bg-[#121212] lg:block w-40 border-r border-neutral-700 rounded-lg">
           <SideNavBar
-            handleClick={changeFormComponent}
+            handleClick={(formComponentName) => {
+              setCurrentComponent(formComponentName);
+            }}
             generateButtonAction={() => console.log(input)}
           />
         </div>
-        <div className="overflow-x-auto lg:w-3/6 border-r border-neutral-700">
-          <FormContainer children={components[currentComponent]} />
+        <FormContainer children={components[currentComponent]} />
+        <div className="fixed bottom-0 p-4 w-screen bg-black text-white lg:hidden">
+          <MobileNavBar
+            nextButtonAction={nextFormComponent}
+            prevButtonAction={prevFormComponent}
+            generateButtonAction={() => console.log(input)}
+            currentComponentId={componentId}
+          />
         </div>
       </div>
     </>
