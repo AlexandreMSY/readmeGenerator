@@ -10,11 +10,7 @@ const DetailsForm = (props) => {
       <div className="flex flex-col gap-8 ">
         <Header
           formTitle="Details"
-          formDescription={
-            <>
-              Enter the basic details of your project.
-            </>
-          }
+          formDescription={<>Enter the basic details of your project.</>}
         />
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-2">
@@ -44,7 +40,7 @@ const DetailsForm = (props) => {
           <div className="flex flex-col gap-2">
             <label htmlFor="projectLink">Project Link</label>
             <input
-              type="link"
+              type="url"
               name="projectLink"
               id="projectLink"
               placeholder="https://github.com/AlexandreMSY/readmeGenerator"
@@ -54,12 +50,13 @@ const DetailsForm = (props) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="logo">Logo</label>
+            <label htmlFor="logoUrl">Logo Image URL</label>
             <input
-              type="file"
-              name="logo"
-              id="logo"
-              className="duration-1000 w-full bg-transparent outline-none text-sm focus:border-lime-400"
+              type="url"
+              name="logoUrl"
+              id="logoUrl"
+              className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
+              onChange={handleChange}
             />
           </div>
         </div>

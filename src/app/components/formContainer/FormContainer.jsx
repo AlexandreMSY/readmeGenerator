@@ -4,7 +4,7 @@ const FormContainer = (props) => {
   const { children } = props;
   return (
     <>
-      <div className="border border-transparent rounded-lg text-white p-8 overflow-auto overflow-auto mb-[10%] bg-[#121212] h-screen w-[100%] md:w-[40%] lg:h-[100%] w-6/12">
+      <div className="rounded-lg p-8 overflow-auto bg-[#121212] w-[100%] h-[100%]">
         {children}
       </div>
     </>
