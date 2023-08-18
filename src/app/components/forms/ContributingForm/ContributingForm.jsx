@@ -1,6 +1,6 @@
 import React from "react";
-import MDEditor, { selectWord } from "@uiw/react-md-editor";
 import Header from "../Header";
+import MDEditor from "@uiw/react-md-editor";
 
 const ContributingForm = (props) => {
   const { value, handleChange } = props;
@@ -11,8 +11,8 @@ const ContributingForm = (props) => {
           formTitle="Contributing"
           formDescription="Give instructions on how to contribute to your project."
         />
-        <div className="mb-6">
-          <MDEditor height={600} value={value} onChange={handleChange} visibleDragbar={false}/>
+        <div>
+          <MDEditor value={value} onChange={handleChange} />
         </div>
       </div>
     </>

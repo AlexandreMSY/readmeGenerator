@@ -55,6 +55,7 @@ const DetailsForm = (props) => {
               type="url"
               name="logoUrl"
               id="logoUrl"
+              placeholder="https://example.com/your-image.png"
               className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
               onChange={handleChange}
             />

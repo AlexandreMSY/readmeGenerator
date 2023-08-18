@@ -12,6 +12,7 @@ import ContributingForm from "./components/forms/ContributingForm/ContributingFo
 import Contact from "./components/forms/Contact/Contact";
 import items from "./components/sideNavBar/items";
 import MobileNavBar from "./components/mobileNavBar/MobileNavBar";
+import createReadmeJson from "./createReadmeJson";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -153,10 +154,10 @@ const page = () => {
     ),
     about: (
       <AboutForm
-        handleChange={(e) =>
+        handleChange={(value, viewUpdate) =>
           setInput((values) => ({
             ...values,
-            aboutText: e,
+            aboutText: value,
           }))
         }
         value={input.aboutText}
@@ -235,7 +236,16 @@ const page = () => {
             handleClick={(formComponentName) => {
               setCurrentComponent(formComponentName);
             }}
-            generateButtonAction={() => console.log(input)}
+            generateButtonAction={async () => {
+              const req = await fetch('/api/createreadme', {
+                method: 'POST',
+                body: JSON.stringify(input)
+              })
+
+              const res = await req.json()
+
+              console.log(res);
+            }}
           />
         </div>
         <FormContainer children={components[currentComponent]} />
