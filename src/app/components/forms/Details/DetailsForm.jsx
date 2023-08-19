@@ -38,7 +38,7 @@ const DetailsForm = (props) => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="projectLink">Project Link</label>
+            <label htmlFor="projectLink">Github Repository Link</label>
             <input
               type="url"
               name="projectLink"
