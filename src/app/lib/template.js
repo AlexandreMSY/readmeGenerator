@@ -29,15 +29,28 @@ const tableOfContents = html`
 `;
 
 const template = (valuesObject) => {
-  const header = generator.header(
-    valuesObject.projectName,
-    valuesObject.description,
-    valuesObject.projectLink,
-    valuesObject.logoUrl
-  );
+  const {
+    projectName,
+    description,
+    projectLink,
+    logoUrl,
+    aboutText,
+    techs,
+    gettingStarted,
+  } = valuesObject;
 
-  const about = generator.about(valuesObject.aboutText);
-  const builtWith = generator.builtWith(valuesObject.techs);
+  const header = generator.header(
+    projectName,
+    description,
+    projectLink,
+    logoUrl
+  );
+  const about = generator.about(aboutText);
+  const builtWith = generator.builtWith(techs);
+  const prerequisites = generator.prerequisites(gettingStarted.prerequisites);
+  const installationSteps = generator.installationSteps(
+    gettingStarted.installation
+  );
 
   //prettier-ignore
   return html`
@@ -55,10 +68,16 @@ const template = (valuesObject) => {
     ${header} 
 
     ${tableOfContents}
-    
+
     ${about}
 
     ${builtWith}
+
+    ## Getting Started
+    
+    ${prerequisites}
+
+    ${installationSteps}
   `;
 };
 

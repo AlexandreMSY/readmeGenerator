@@ -12,9 +12,7 @@ const AboutForm = (props) => {
           formTitle="About"
           formDescription="Let people know what your project can do specifically."
         />
-        <div>
-          <MDEditor value={value} onChange={handleChange} />
-        </div>
+        <MDEditor value={value} onChange={handleChange} />
       </div>
     </>
   );

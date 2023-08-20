@@ -11,9 +11,7 @@ const ContributingForm = (props) => {
           formTitle="Contributing"
           formDescription="Give instructions on how to contribute to your project."
         />
-        <div>
-          <MDEditor value={value} onChange={handleChange} />
-        </div>
+        <MDEditor value={value} onChange={handleChange} />
       </div>
     </>
   );

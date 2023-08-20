@@ -13,6 +13,7 @@ import Contact from "./components/forms/Contact/Contact";
 import items from "./components/sideNavBar/items";
 import MobileNavBar from "./components/mobileNavBar/MobileNavBar";
 import createReadmeJson from "./createReadmeJson";
+import Usage from "./components/forms/Usage/Usage";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -26,6 +27,7 @@ const page = () => {
       prerequisites: [],
       installation: [],
     },
+    usage: "",
     roadmap: "",
     contributing: "",
   });
@@ -189,6 +191,17 @@ const page = () => {
         installationSteps={input.gettingStarted.installation}
       />
     ),
+    usage: (
+      <Usage
+        value={input.usage}
+        handleChange={(e) => {
+          setInput((values) => ({
+            ...values,
+            usage: e,
+          }));
+        }}
+      />
+    ),
     roadmap: (
       <Roadmap
         value={input.roadmap}
@@ -237,12 +250,12 @@ const page = () => {
               setCurrentComponent(formComponentName);
             }}
             generateButtonAction={async () => {
-              const req = await fetch('/api/createreadme', {
-                method: 'POST',
-                body: JSON.stringify(input)
-              })
+              const req = await fetch("/api/createreadme", {
+                method: "POST",
+                body: JSON.stringify(input),
+              });
 
-              const res = await req.json()
+              const res = await req.json();
 
               console.log(res);
             }}
