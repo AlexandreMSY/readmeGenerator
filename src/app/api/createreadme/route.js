@@ -5,12 +5,13 @@ const fs = require('fs')
 
 export async function POST(request) {
   const body = await request.json();
-
   const doc = template(body)
   
   const writeStream = fs.createWriteStream('test.md')
   writeStream.write(doc)
   writeStream.end()
   
-  return NextResponse.json(body);
+  return NextResponse.json({
+    mdCode: doc,
+  });
 }

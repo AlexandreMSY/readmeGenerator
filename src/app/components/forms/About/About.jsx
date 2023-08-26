@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../Header";
-import MDEditor from "@uiw/react-md-editor";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
 const AboutForm = (props) => {
   const { handleChange, value } = props;
@@ -12,7 +12,7 @@ const AboutForm = (props) => {
           formTitle="About"
           formDescription="Let people know what your project can do specifically."
         />
-        <MDEditor value={value} onChange={handleChange} />
+        <MarkdownEditor height="300px" value={value} onChange={handleChange} />
       </div>
     </>
   );

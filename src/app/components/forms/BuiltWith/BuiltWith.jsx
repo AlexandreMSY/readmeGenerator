@@ -1,8 +1,17 @@
 import React from "react";
 import TechCard from "./TechCard";
 import Header from "../Header";
+import TextField from "@mui/material/TextField";
+import { Button } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
+import AddIcon from "@mui/icons-material/Add";
+import lightTheme from "../../materialUiTheme";
 
-const BuiltWithForm = (props) => {
+const backgroundColor = {
+  backgroundColor: "#000000",
+};
+
+const BuiltWith = (props) => {
   const { techNameRef, addButtonAction, deleteButtonAction, technologiesList } =
     props;
   return (
@@ -13,21 +22,24 @@ const BuiltWithForm = (props) => {
           formDescription="Here you can list all the frameworks/libraries used in your project."
         />
         <div className="flex flex-row justify-center gap-4">
-          <input
-            type="text"
-            name="techName"
-            id="techName"
-            className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
-            ref={techNameRef}
-          />
+          <ThemeProvider theme={lightTheme}>
+            <TextField
+              id="techName"
+              name="techName"
+              label="Tech Name"
+              variant="standard"
+              className="w-[100%]"
+              inputRef={techNameRef}
+            />
+          </ThemeProvider>
           <button
             onClick={addButtonAction}
-            className="rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white rounded bg-lime-500 py-1 px-4"
+            className="rounded-md w-24 bg-gradient-to-r from-green-400 to-blue-500"
           >
-            Add
+            <AddIcon />
           </button>
         </div>
-        <div className="text-white flex flex-row gap-4 flex-wrap">
+        <div className="text-white flex flex-row gap-3 flex-wrap">
           {technologiesList.map((item) => (
             <TechCard
               deleteBtnAction={() => {
@@ -43,4 +55,4 @@ const BuiltWithForm = (props) => {
   );
 };
 
-export default BuiltWithForm;
+export default BuiltWith;

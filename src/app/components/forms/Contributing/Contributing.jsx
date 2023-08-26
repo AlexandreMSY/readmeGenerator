@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "../Header";
-import MDEditor from "@uiw/react-md-editor";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 
-const ContributingForm = (props) => {
+const Contributing = (props) => {
   const { value, handleChange } = props;
   return (
     <>
@@ -11,10 +11,10 @@ const ContributingForm = (props) => {
           formTitle="Contributing"
           formDescription="Give instructions on how to contribute to your project."
         />
-        <MDEditor value={value} onChange={handleChange} />
+        <MarkdownEditor height="300px" value={value} onChange={handleChange} />
       </div>
     </>
   );
 };
 
-export default ContributingForm;
+export default Contributing;

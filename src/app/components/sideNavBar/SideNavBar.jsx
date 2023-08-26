@@ -10,14 +10,20 @@ const SideNavBar = (props) => {
           {items.map((items) => (
             <button
               key={items.id}
-              className="hover:bg-gray-700 px-4 border border-transparent rounded-lg"
+              className="hover:bg-gray-700 px-1 border border-transparent rounded-lg "
               onClick={() => handleClick(items.changeTo)}
             >
               <h1 className="items-center">{items.text}</h1>
             </button>
           ))}
         </div>
-        <button onClick={generateButtonAction} className="rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white rounded bg-lime-500 p-2 px-4">Generate</button>
+        <button
+          type="submit"
+          onClick={generateButtonAction}
+          className="rounded-full bg-gradient-to-r from-green-400 to-blue-500 text-white rounded p-2 px-4"
+        >
+          Generate
+        </button>
       </div>
     </>
   );

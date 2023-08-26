@@ -2,18 +2,20 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import FormContainer from "./components/formContainer/FormContainer";
-import DetailsForm from "./components/forms/Details/DetailsForm";
-import AboutForm from "./components/forms/AboutForm/AboutForm";
-import BuiltWithForm from "./components/forms/BuiltWith/BuiltWithForm";
+import Details from "./components/forms/Details/Details";
+import About from "./components/forms/About/About";
+import BuiltWith from "./components/forms/BuiltWith/BuiltWith";
 import SideNavBar from "./components/sideNavBar/SideNavBar";
-import GettingStartedForm from "./components/forms/GettingStarted/GettingStartedForm";
-import Roadmap from "./components/forms/RoadmapForm/RoadmapForm";
-import ContributingForm from "./components/forms/ContributingForm/ContributingForm";
+import GettingStarted from "./components/forms/GettingStarted/GettingStarted";
+import Roadmap from "./components/forms/Roadmap/Roadmap";
+import Contributing from "./components/forms/Contributing/Contributing";
 import Contact from "./components/forms/Contact/Contact";
+import Acknowledgments from "./components/forms/Acknowledgments/Acknowledgments";
 import items from "./components/sideNavBar/items";
 import MobileNavBar from "./components/mobileNavBar/MobileNavBar";
-import createReadmeJson from "./createReadmeJson";
+import MarkdownViewer from "./components/markdownViewer/MarkdownViewer";
 import Usage from "./components/forms/Usage/Usage";
+import placeholders from "./placeholders/placeholders";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -21,19 +23,21 @@ const page = () => {
     description: "",
     projectLink: "",
     logoUrl: "",
-    aboutText: "",
+    about: placeholders.about,
     techs: [],
     gettingStarted: {
       prerequisites: [],
       installation: [],
     },
     usage: "",
-    roadmap: "",
-    contributing: "",
+    roadmap: placeholders.roadmap,
+    contributing: placeholders.contributing,
+    acknowledgments: placeholders.acknowledgments,
   });
   const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
   const [componentId, setComponentId] = useState(0);
+  const [markdownCode, setMarkdownCode] = useState('')
 
   useEffect(() => {
     setCurrentComponent(items[componentId].changeTo);
@@ -147,7 +151,7 @@ const page = () => {
 
   const components = {
     details: (
-      <DetailsForm
+      <Details
         projectNameValue={input.projectName}
         descriptionValue={input.description}
         projectLinkValue={input.projectLink}
@@ -155,18 +159,18 @@ const page = () => {
       />
     ),
     about: (
-      <AboutForm
+      <About
         handleChange={(value, viewUpdate) =>
           setInput((values) => ({
             ...values,
             aboutText: value,
           }))
         }
-        value={input.aboutText}
+        value={input.about}
       />
     ),
     built: (
-      <BuiltWithForm
+      <BuiltWith
         techNameRef={(ref) => (refs.current["techName"] = ref)}
         technologiesList={input.techs}
         addButtonAction={builtWithAddBtnAction}
@@ -174,7 +178,7 @@ const page = () => {
       />
     ),
     gettingStarted: (
-      <GettingStartedForm
+      <GettingStarted
         prerequisiteTextRef={(ref) => (refs.current["prerequisiteName"] = ref)}
         prerequisiteTextAreaRef={(ref) =>
           (refs.current["prerequisiteCode"] = ref)
@@ -214,7 +218,7 @@ const page = () => {
       />
     ),
     contributing: (
-      <ContributingForm
+      <Contributing
         value={input.contributing}
         handleChange={(e) => {
           setInput((values) => ({
@@ -224,7 +228,18 @@ const page = () => {
         }}
       />
     ),
-    contact: <Contact />,
+    //contact: <Contact />,
+    acknowledgments: (
+      <Acknowledgments
+        value={input.acknowledgments}
+        handleChange={(e) => {
+          setInput((values) => ({
+            ...values,
+            acknowledgments: e,
+          }));
+        }}
+      />
+    ),
   };
 
   const nextFormComponent = () => {
@@ -234,17 +249,17 @@ const page = () => {
   };
 
   const prevFormComponent = () => {
-    if (componentId < 1) {
-      return;
+    console.log(componentId);
+    if (componentId > 0) {
+      setComponentId(componentId - 1);
     }
 
-    setComponentId(componentId - 1);
   };
 
   return (
     <>
       <div className="relative text-white bg-black flex flex-col h-screen lg:flex-row gap-2 p-3">
-        <div className="hidden border border-transparent bg-[#121212] lg:block w-40 border-r border-neutral-700 rounded-lg">
+        <div className="hidden border border-transparent bg-[#121212] rounded-lg lg:block">
           <SideNavBar
             handleClick={(formComponentName) => {
               setCurrentComponent(formComponentName);
@@ -256,6 +271,7 @@ const page = () => {
               });
 
               const res = await req.json();
+              setMarkdownCode(res.mdCode)
 
               console.log(res);
             }}
@@ -268,6 +284,7 @@ const page = () => {
           generateButtonAction={() => console.log(input)}
           currentComponentId={componentId}
         />
+        <MarkdownViewer source={markdownCode.mdCode}/>
       </div>
     </>
   );

@@ -21,8 +21,6 @@ const tableOfContents = html`
       <li><a href="#usage">Usage</a></li>
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#contributing">Contributing</a></li>
-      <li><a href="#license">License</a></li>
-      <li><a href="#contact">Contact</a></li>
       <li><a href="#acknowledgments">Acknowledgments</a></li>
     </ol>
   </details>
@@ -34,9 +32,13 @@ const template = (valuesObject) => {
     description,
     projectLink,
     logoUrl,
-    aboutText,
+    about,
     techs,
     gettingStarted,
+    usage,
+    roadmap,
+    contributing,
+    acknowledgments
   } = valuesObject;
 
   const header = generator.header(
@@ -45,12 +47,16 @@ const template = (valuesObject) => {
     projectLink,
     logoUrl
   );
-  const about = generator.about(aboutText);
-  const builtWith = generator.builtWith(techs);
+  const aboutSection = generator.about(about);
+  const builtWithSection = generator.builtWith(techs);
   const prerequisites = generator.prerequisites(gettingStarted.prerequisites);
   const installationSteps = generator.installationSteps(
     gettingStarted.installation
   );
+  const usageSection = generator.usage(usage);
+  const roadmapSection = generator.roadmap(roadmap)
+  const contributingSection = generator.contributing(contributing)
+  const acknowledgmentsSection = generator.acknowledgments(acknowledgments)
 
   //prettier-ignore
   return html`
@@ -69,15 +75,23 @@ const template = (valuesObject) => {
 
     ${tableOfContents}
 
-    ${about}
+    ${aboutSection}
 
-    ${builtWith}
+    ${builtWithSection}
 
     ## Getting Started
     
     ${prerequisites}
 
     ${installationSteps}
+
+    ${usageSection}
+
+    ${roadmapSection}
+
+    ${contributingSection}
+
+    ${acknowledgmentsSection}
   `;
 };
 

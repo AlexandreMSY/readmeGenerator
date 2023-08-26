@@ -9,7 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.6",
+    "@mui/material": "^5.14.6",
+    "@uiw/react-markdown-editor": "^5.11.2",
     "@uiw/react-md-editor": "^3.23.5",
+    "@videsk/tailwind-random-color": "^0.2.0-beta",
     "autoprefixer": "10.4.14",
     "common-tags": "^1.8.2",
     "next": "13.4.10",
