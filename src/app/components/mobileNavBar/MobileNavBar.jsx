@@ -13,7 +13,7 @@ const MobileNavBar = (props) => {
   } = props;
   return (
     <>
-      <div className="flex flex-row justify-between mx-3 mt-2 text-teal-500 lg:hidden">
+      <div className="fixed bottom-0 left-0 p-4 w-full h-fit flex flex-row justify-between bg-black text-teal-500 lg:hidden">
         <button
           className="border border-teal-500 px-2 rounded-full bg-teal-950"
           onClick={prevButtonAction}
