@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { saveAs } from "file-saver";
 import FormContainer from "./components/formContainer/FormContainer";
 import Details from "./components/forms/Details/Details";
 import About from "./components/forms/About/About";
@@ -16,6 +17,7 @@ import MobileNavBar from "./components/mobileNavBar/MobileNavBar";
 import MarkdownViewer from "./components/markdownViewer/MarkdownViewer";
 import Usage from "./components/forms/Usage/Usage";
 import placeholders from "./placeholders/placeholders";
+import MarkdownViewerMobile from "./components/markdownViewerMobile/MarkdownViewerMobile";
 
 const page = () => {
   const [input, setInput] = useState({
@@ -37,7 +39,7 @@ const page = () => {
   const refs = useRef({});
   const [currentComponent, setCurrentComponent] = useState("details");
   const [componentId, setComponentId] = useState(0);
-  const [markdownCode, setMarkdownCode] = useState('')
+  const [markdownCode, setMarkdownCode] = useState("");
 
   useEffect(() => {
     setCurrentComponent(items[componentId].changeTo);
@@ -240,6 +242,7 @@ const page = () => {
         }}
       />
     ),
+    markdownViewerMobile: <MarkdownViewerMobile source={markdownCode.mdCode} />,
   };
 
   const nextFormComponent = () => {
@@ -253,13 +256,21 @@ const page = () => {
     if (componentId > 0) {
       setComponentId(componentId - 1);
     }
-
   };
+
+  /*const downloadTxtFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([markdownCode.mdCode], { type: "text/plain;charset=utf-8" });
+    element.href = URL.createObjectURL(file);
+    element.download = "myFile.txt";
+    document.body.appendChild(element);
+    element.click();
+  };*/
 
   return (
     <>
       <div className="relative text-white bg-black flex flex-col h-screen lg:flex-row gap-2 p-3">
-        <div className="hidden border border-transparent bg-[#121212] rounded-lg lg:block">
+        <div className="hidden border bg-[#121212] lg:block border-gray-900 rounded-lg ">
           <SideNavBar
             handleClick={(formComponentName) => {
               setCurrentComponent(formComponentName);
@@ -271,7 +282,7 @@ const page = () => {
               });
 
               const res = await req.json();
-              setMarkdownCode(res.mdCode)
+              setMarkdownCode(res);
 
               console.log(res);
             }}
@@ -281,7 +292,17 @@ const page = () => {
         <MobileNavBar
           nextButtonAction={nextFormComponent}
           prevButtonAction={prevFormComponent}
-          generateButtonAction={() => console.log(input)}
+          generateButtonAction={async () => {
+            const req = await fetch("/api/createreadme", {
+              method: "POST",
+              body: JSON.stringify(input),
+            });
+
+            const res = await req.json();
+            setMarkdownCode(res);
+            setCurrentComponent("markdownViewerMobile");
+            console.log(res);
+          }}
           currentComponentId={componentId}
         />
         <MarkdownViewer source={markdownCode.mdCode}/>
