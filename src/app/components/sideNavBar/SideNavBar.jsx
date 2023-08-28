@@ -5,7 +5,7 @@ const SideNavBar = (props) => {
   const { handleClick, generateButtonAction } = props;
   return (
     <>
-      <div className="flex flex-col gap-3 text-md items-center m-16 mx-5 text-white bg-[#121212]">
+      <div className="flex flex-col gap-3 text-md p-4 m-16 mx-5">
         <div className="flex flex-col gap-3">
           {items.map((items) => (
             <button

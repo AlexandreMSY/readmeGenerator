@@ -242,7 +242,7 @@ const page = () => {
         }}
       />
     ),
-    markdownViewerMobile: <MarkdownViewerMobile source={markdownCode.mdCode} />,
+    markdownViewerMobile: <MarkdownViewerMobile source={markdownCode} />,
   };
 
   const nextFormComponent = () => {
@@ -258,55 +258,45 @@ const page = () => {
     }
   };
 
-  /*const downloadTxtFile = () => {
-    const element = document.createElement("a");
-    const file = new Blob([markdownCode.mdCode], { type: "text/plain;charset=utf-8" });
-    element.href = URL.createObjectURL(file);
-    element.download = "myFile.txt";
-    document.body.appendChild(element);
-    element.click();
-  };*/
-
   return (
     <>
-      <div className="relative text-white bg-black flex flex-col h-screen lg:flex-row gap-2 p-3">
-        <div className="hidden border bg-[#121212] lg:block border-gray-900 rounded-lg ">
+      <div className="text-white flex flex-col gap-2 h-screen bg-black p-2 md:flex-row">
+        <div className="hidden lg:inline-block bg-[#121212]">
           <SideNavBar
-            handleClick={(formComponentName) => {
-              setCurrentComponent(formComponentName);
-            }}
+            handleClick={(componentName) => setCurrentComponent(componentName)}
             generateButtonAction={async () => {
               const req = await fetch("/api/createreadme", {
                 method: "POST",
                 body: JSON.stringify(input),
               });
-
               const res = await req.json();
-              setMarkdownCode(res);
 
-              console.log(res);
+              setMarkdownCode(res.mdCode);
             }}
           />
         </div>
-        <FormContainer children={components[currentComponent]} />
-        <MobileNavBar
-          nextButtonAction={nextFormComponent}
-          prevButtonAction={prevFormComponent}
-          generateButtonAction={async () => {
-            const req = await fetch("/api/createreadme", {
-              method: "POST",
-              body: JSON.stringify(input),
-            });
-
-            const res = await req.json();
-            setMarkdownCode(res);
-            setCurrentComponent("markdownViewerMobile");
-            console.log(res);
-          }}
-          currentComponentId={componentId}
-        />
-        <MarkdownViewer source={markdownCode.mdCode}/>
+        <div className="bg-[#121212] h-[95%] w-[100%] overflow-auto lg:h-[100%]">
+          <FormContainer children={components[currentComponent]} />
+        </div>
+        <div className="hidden lg:inline-block w-[70%] overflow-auto bg-[#121212]">
+          <MarkdownViewer source={markdownCode} />
+        </div>
       </div>
+      <MobileNavBar
+        currentComponentId={componentId}
+        nextButtonAction={nextFormComponent}
+        prevButtonAction={prevFormComponent}
+        generateButtonAction={async () => {
+          const req = await fetch("/api/createreadme", {
+            method: "POST",
+            body: JSON.stringify(input),
+          });
+          const res = await req.json();
+
+          setMarkdownCode(res.mdCode);
+          setCurrentComponent("markdownViewerMobile");
+        }}
+      />
     </>
   );
 };

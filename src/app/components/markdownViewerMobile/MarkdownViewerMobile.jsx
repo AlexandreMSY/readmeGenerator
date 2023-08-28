@@ -6,7 +6,7 @@ const MarkdownViewerMobile = (props) => {
 
   const downloadTxtFile = () => {
     const element = document.createElement("a");
-    const file = new Blob([source], { type: "text/html;charset=utf-8" });
+    const file = new Blob([source], { type: "text/md;charset=utf-8" });
     element.href = URL.createObjectURL(file);
     element.download = "README.md";
     document.body.appendChild(element);

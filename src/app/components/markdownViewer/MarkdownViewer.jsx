@@ -6,7 +6,7 @@ const MarkdownViewer = (props) => {
 
   const downloadTxtFile = () => {
     const element = document.createElement("a");
-    const file = new Blob([source], { type: "text/html;charset=utf-8" });
+    const file = new Blob([source], { type: "text/md;charset=utf-8" });
     element.href = URL.createObjectURL(file);
     element.download = "README.md";
     document.body.appendChild(element);
@@ -15,8 +15,8 @@ const MarkdownViewer = (props) => {
 
   return (
     <>
-      <div className="hidden border border-gray-900 rounded-lg overflow-auto bg-[#121212] w-[100%] rounded-lg lg:inline-block">
-        <div className="flex justify-center w-[100%] p-4 bg-black">
+      <div className="rounded-lg overflow-auto bg-[#121212] w-[100%] rounded-lg">
+        <div className="flex border border-slate-900 rounded-tl-lg rounded-tr-lg justify-center w-[100%] p-4 bg-black">
           <button onClick={downloadTxtFile}>
             <DownloadIcon /> Download
           </button>
