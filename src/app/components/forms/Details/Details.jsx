@@ -6,10 +6,6 @@ import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import lightTheme from "../../materialUiTheme";
 
-const backgroundColor = {
-  backgroundColor: '#000000'
-}
-
 const Details = (props) => {
   const { handleChange, projectNameValue, descriptionValue, projectLinkValue } =
     props;
@@ -26,37 +22,29 @@ const Details = (props) => {
             <CssBaseline />
             <TextField
               label="Project Name"
-              variant="filled"
               type="text"
               name="projectName"
               value={projectNameValue}
-              style={backgroundColor}
               onChange={handleChange}
             />
             <TextField
               label="Description"
-              variant="filled"
               type="text"
               name="description"
               value={descriptionValue}
-              style={backgroundColor}
               onChange={handleChange}
             />
             <TextField
               label="Github Respository URL"
-              variant="filled"
               type="url"
               name="projectLink"
               value={projectLinkValue}
-              style={backgroundColor}
               onChange={handleChange}
             />
             <TextField
               label="Logo Image URL"
-              variant="filled"
               type="url"
               name="logoUrl"
-              style={backgroundColor}
               onChange={handleChange}
             />
           </ThemeProvider>

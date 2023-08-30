@@ -1,38 +1,44 @@
 import React from "react";
 import SubHeader from "./SubHeader";
+import { TextField } from "@mui/material";
+import lightTheme from "../../materialUiTheme";
+import { ThemeProvider } from "@emotion/react";
 
 const InstallationForm = (props) => {
-  const {textRef, textAreaRef, addButtonAction} = props
+  const { textRef, textAreaRef, addButtonAction } = props;
   return (
     <>
-      <div className="flex flex-col gap-6">
-        <SubHeader
-          title="Installation"
-          description="
-          All the steps needed to install the project on the machine.
-          "
-        />
-        <div className="flex flex-col gap-2">
-          <label htmlFor="installationStep">Step</label>
-          <input
-            type="text"
-            name="installationStep"
-            ref={textRef}
-            minLength={1}
-            className="duration-1000 w-full bg-transparent border-b outline-none text-sm focus:border-lime-400"
+      <ThemeProvider theme={lightTheme}>
+        <div className="flex flex-col gap-6">
+          <SubHeader
+            title="Installation"
+            description="All the steps needed to install the project on the machine."
           />
-          <label htmlFor="installationCode">Code/Command</label>
-          <textarea
-            name="installationCode"
-            ref={textAreaRef}
-            minLength={1}
-            className="bg-gray-900 outline-none h-[10em] p-2"
-          ></textarea>
+          <div className="flex flex-col gap-4">
+            <TextField
+              id="installationStep"
+              name="installationStep"
+              label="Installation Step"
+              inputRef={textRef}
+            />
+            <TextField
+              label="Code/Command"
+              id="installationCode"
+              name="installationCode"
+              inputRef={textAreaRef}
+              multiline
+              rows={4}
+              maxRows={Infinity}
+            />
+            <button
+            onClick={addButtonAction}
+            className="bg-green-700 text-white rounded"
+          >
+            Add
+          </button>
+          </div>
         </div>
-        <button onClick={addButtonAction} className="bg-gradient-to-r from-green-400 to-blue-500 text-white rounded bg-lime-500">
-          Add
-        </button>
-      </div>
+      </ThemeProvider>
     </>
   );
 };
