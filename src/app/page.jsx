@@ -260,7 +260,7 @@ const page = () => {
 
   return (
     <>
-      <div className="text-white flex flex-col gap-2 h-screen bg-black p-2 md:flex-row">
+      <div className="text-white flex flex-col gap-2 h-screen bg-black sm:p-2 md:flex-row">
         <div className="hidden lg:inline-block bg-[#121212]">
           <SideNavBar
             handleClick={(componentName) => setCurrentComponent(componentName)}
